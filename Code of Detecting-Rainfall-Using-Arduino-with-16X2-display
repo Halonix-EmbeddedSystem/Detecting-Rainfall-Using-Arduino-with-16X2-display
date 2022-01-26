@@ -1,0 +1,47 @@
+#include "LiquidCrystal.h"    
+#define LCD_PIN_RS  8    
+#define LCD_PIN_E 7    
+#define LCD_PIN_DB4 3    
+#define LCD_PIN_DB5 4    
+#define LCD_PIN_DB6 5    
+#define LCD_PIN_DB7 6    
+LiquidCrystal lcd(LCD_PIN_RS,LCD_PIN_E,LCD_PIN_DB4,LCD_PIN_DB5,LCD_PIN_DB6,LCD_PIN_DB7);    
+const int sensorMin = 0;     
+const int sensorMax = 1024;     
+void setup()     
+{    
+  Serial.begin(9600);    
+   lcd.begin(16, 2);    
+lcd.print("C#corner");    
+ lcd.setCursor(0,1);    
+ lcd.print("Rain Detection");    
+ delay(2000);    
+}    
+    
+    void loop()    
+{    
+  int sensorReading = analogRead(A0);    
+  int range = map(sensorReading, sensorMin, sensorMax, 0, 3);    
+    
+  switch (range)    
+    {    
+      case 0:    
+         lcd.clear();    
+    lcd.setCursor(0,0);     
+  lcd.print("Rainy");    
+        break;    
+    
+      case 1:    
+         lcd.clear();    
+    lcd.setCursor(0,0);     
+  lcd.print("Rain Started");    
+        break;    
+    
+      case 2:    
+         lcd.clear();    
+    lcd.setCursor(0,0);     
+  lcd.print("No Rain");    
+        break;    
+    }    
+  delay(1000);     
+}
